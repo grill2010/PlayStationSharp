@@ -8,5 +8,5 @@ automatically port mappings for port 9308 and/ or 9304 as the official Remoet Pl
 ## Usage
 __Notice:__
 In this project there is a lot of unused code and some things could definetly be implemented in a better way but the main purpose of this test program was to be able to quickly grab Account-Ids
-for users of the [PSPlay](https://play.google.com/store/apps/details?id=psplay.grill.com) and [Chiaki](https://play.google.com/store/apps/details?id=com.metallic.chiaki) app. These a two 3rd Party
+for users of the [PSPlay](https://play.google.com/store/apps/details?id=psplay.grill.com) and [Chiaki](https://play.google.com/store/apps/details?id=com.metallic.chiaki) app. These are two 3rd Party
 remote play client applications. Maybe this is useful for others as well. There is general no support for this project and this was just released as it is maybe useful for other cool projects.
