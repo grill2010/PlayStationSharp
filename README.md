@@ -1,5 +1,5 @@
 # PlayStationSharp
-This project is based https://github.com/Tustin/PlayStationSharp.
+This project is based on https://github.com/Tustin/PlayStationSharp.
 This program was modified to use the PSN remote play login credentials in order to query the account id for a specific user by his/ her PSN id (user name)
 
 It also inludes some experimental features like waking up PS4 and PS5 over PSN. Please note, these features are experimental and if you have enabled UPnP on your router the PS5/ PS4 will create
