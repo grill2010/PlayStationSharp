@@ -10,7 +10,7 @@ namespace PlayStationSharp.Forms
 	{
 		public string GrantCode { get; private set; }
 
-        private string _loginUrl => "https://auth.api.sonyentertainmentnetwork.com/2.0/oauth/authorize?service_entity=urn:service-entity:psn&response_type=code&client_id=" + Auth.AuthorizationBearer.ClientId + "&redirect_uri=https://remoteplay.dl.playstation.net/remoteplay/redirect&scope=psn:clientapp&request_locale=en_US&ui=pr&service_logo=ps&layout_type=popup&smcid=remoteplay&prompt=always&PlatformPrivacyWs1=minimal&";
+        private string _loginUrl => "https://auth.api.sonyentertainmentnetwork.com/2.0/oauth/authorize?service_entity=urn:service-entity:psn&response_type=code&client_id=" + Auth.AuthorizationBearer.ClientId + "&redirect_uri=https://remoteplay.dl.playstation.net/remoteplay/redirect&scope=" + Auth.AuthorizationBearer.Scope + "&request_locale =en_US&ui=pr&service_logo=ps&layout_type=popup&smcid=remoteplay&prompt=always&PlatformPrivacyWs1=minimal&";
 
 		// Okay, so the deal with this stuff is for some reason, the WebView control throws an exception for certain people.
 		// Since I couldn't repro the issue, the library will fallback to the built in .NET webBrowser control and use that instead.

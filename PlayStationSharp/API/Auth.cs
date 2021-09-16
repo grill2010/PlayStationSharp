@@ -18,7 +18,7 @@ namespace PlayStationSharp.API
             public const string ClientSecret = "mvaiZkRsAsI1IBkY"; // client secret for remote play windows
             public const string GrantType = "authorization_code";
             public const string RefreshType = "refresh_token";
-            public const string Scope = "psn:clientapp";
+            public const string Scope = "psn%3Aclientapp+referenceDataService%3AcountryConfig.read+pushNotification%3AwebSocket.desktop.connect+sessionManager%3AremotePlaySession.system.update";
 			public const string RedirectUri = "https://remoteplay.dl.playstation.net/remoteplay/redirect&";
 
             public const string Ps5ProfileUrl = "https://web.np.playstation.net";
