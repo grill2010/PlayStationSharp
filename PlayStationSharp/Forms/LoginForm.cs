@@ -6,20 +6,18 @@ using PlayStationSharp.API;
 
 namespace PlayStationSharp.Forms
 {
-	public partial class LoginForm : Form
-	{
-		public string GrantCode { get; private set; }
+    public partial class LoginForm : Form
+    {
+        public string GrantCode { get; private set; }
 
+        private string _loginUrl => "https://auth.api.sonyentertainmentnetwork.com/2.0/oauth/authorize?service_entity=urn:service-entity:psn&response_type=code&client_id=" + Auth.AuthorizationBearer.ClientId + "&redirect_uri=https://remoteplay.dl.playstation.net/remoteplay/redirect&scope=psn:clientapp&request_locale=en_US&ui=pr&service_logo=ps&layout_type=popup&smcid=remoteplay&prompt=always&PlatformPrivacyWs1=minimal&";
 
-        private string _loginUrl => "https://auth.api.sonyentertainmentnetwork.com/2.0/oauth/authorize?service_entity=urn:service-entity:psn&response_type=code&client_id=" + Auth.AuthorizationBearer.ClientId + "&redirect_uri=https://remoteplay.dl.playstation.net/remoteplay/redirect&duid=" + Auth.AuthorizationBearer.FakeDuid + "&scope=" + Auth.AuthorizationBearer.Scope + "&request_locale =en_US&ui=pr&service_logo=ps&layout_type=popup&smcid=remoteplay&prompt=always&PlatformPrivacyWs1=minimal&";
-
-       
         // Okay, so the deal with this stuff is for some reason, the WebView control throws an exception for certain people.
         // Since I couldn't repro the issue, the library will fallback to the built in .NET webBrowser control and use that instead.
         // It's pretty horrible, but it'll have to do until I can find out why the WebView crashes.
         public LoginForm(bool useWindows10WebEngine)
-		{
-			InitializeComponent();
+        {
+            InitializeComponent();
             if (useWindows10WebEngine)
             {
                 try
@@ -46,7 +44,7 @@ namespace PlayStationSharp.Forms
                 MinimumSize = new System.Drawing.Size(20, 20),
                 Name = "webLogin",
                 Size = new System.Drawing.Size(574, 636),
-                Source = new Uri(this._loginUrl, System.UriKind.Absolute),
+                Source = new System.Uri(this._loginUrl, System.UriKind.Absolute),
                 TabIndex = 0,
                 Visible = true
             };
@@ -75,28 +73,28 @@ namespace PlayStationSharp.Forms
             this.Controls.Add(webBrowserLogin);
         }
 
-		private void webViewLogin_NavigationStarting(object sender, WebViewControlNavigationStartingEventArgs e)
-		{
-			var url = Uri.UnescapeDataString(e.Uri.ToString());
+        private void webViewLogin_NavigationStarting(object sender, WebViewControlNavigationStartingEventArgs e)
+        {
+            var url = Uri.UnescapeDataString(e.Uri.ToString());
 
-			if (!url.StartsWith("https://auth.api.sonyentertainmentnetwork.com/mobile-success.jsp")) return;
+            if (!url.StartsWith("https://remoteplay.dl.playstation.net/remoteplay/redirect?code=")) return;
 
-			var paramName = "code=";
-			var code = url.Remove(0, url.IndexOf(paramName, StringComparison.Ordinal) + paramName.Length);
-			GrantCode = code.Substring(0, code.IndexOf("&", StringComparison.Ordinal));
-			this.Close();
-		}
+            var paramName = "code=";
+            var code = url.Remove(0, url.IndexOf(paramName, StringComparison.Ordinal) + paramName.Length);
+            GrantCode = code.Substring(0, code.IndexOf("&", StringComparison.Ordinal));
+            this.Close();
+        }
 
-		private void webBrowserLogin_Navigated(object sender, WebBrowserNavigatedEventArgs e)
-		{
-			var url = Uri.UnescapeDataString(e.Url.ToString());
+        private void webBrowserLogin_Navigated(object sender, WebBrowserNavigatedEventArgs e)
+        {
+            var url = Uri.UnescapeDataString(e.Url.ToString());
 
-			if (!url.StartsWith("https://remoteplay.dl.playstation.net/remoteplay/redirect?code=")) return;
+            if (!url.StartsWith("https://remoteplay.dl.playstation.net/remoteplay/redirect?code=")) return;
 
-			var paramName = "code=";
-			var code = url.Remove(0, url.IndexOf(paramName, StringComparison.Ordinal) + paramName.Length);
-			GrantCode = code.Substring(0, code.IndexOf("&", StringComparison.Ordinal));
-			this.Close();
-		}
-	}
+            var paramName = "code=";
+            var code = url.Remove(0, url.IndexOf(paramName, StringComparison.Ordinal) + paramName.Length);
+            GrantCode = code.Substring(0, code.IndexOf("&", StringComparison.Ordinal));
+            this.Close();
+        }
+    }
 }
